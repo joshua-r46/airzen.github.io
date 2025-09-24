@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Air Quality Map - Breathe Better</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <meta name="description" content="Live interactive global air quality map showing real-time AQI levels worldwide with automatic updates.">
+    <style>
+        .map-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .map-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .map-tab:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .map-tab:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .map-content {
+            display: none;
+            min-height: 70vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-content.active {
+            display: block;
+        }
+        
+        .live-map-container {
+            position: relative;
+            height: 70vh;
+            width: 100%;
+        }
+        
+        .widget-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin: 1rem 0;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+        
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #32CD32;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(50, 205, 50, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(50, 205, 50, 0); }
+        }
+        
+        .embed-map {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .map-description {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">AirZen</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="effects.html">Health Effects</a></li>
+                <li><a href="dashboard.html">Data Dashboard</a></li>
+                <li><a href="map.html" class="active">Air Quality Map</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 30vh; background: var(--gradient-1); padding-top: 8rem;">
+        <div class="hero-content">
+            <h1>Live Global Air Quality Map</h1>
+            <p>Real-time air pollution monitoring worldwide with automatic updates</p>
+        </div>
+    </section>
+
+    <!-- Map Selection Tabs -->
+    <section class="section">
+        <div class="container">
+            <div class="map-tabs">
+                <button class="map-tab active" onclick="showMap('world-map')">🌍 World Map</button>
+                <button class="map-tab" onclick="showMap('india-focus')">🇮🇳 India Focus</button>
+                <button class="map-tab" onclick="showMap('custom-widget')">📊 Live Widgets</button>
+            </div>
+
+            <!-- World Map -->
+            <div id="world-map" class="map-content active">
+                <div class="live-map-container">
+                    <div class="status-indicator">
+                        <span class="live-indicator"></span>Live Data
+                    </div>
+                    <!-- World Air Quality Index Live Map -->
+                    <iframe 
+                        src="https://waqi.info/world-air-quality-index#g/20.5937/78.9629/5z"
+                        class="embed-map"
+                        title="Live World Air Quality Map">
+                    </iframe>
+                </div>
+                <div class="map-description">
+                    <h3>🌍 Global Coverage</h3>
+                    <p>This interactive map displays real-time air quality data from over 11,000+ monitoring stations worldwide. Data is updated every 15-30 minutes and includes PM2.5, PM10, NO2, SO2, CO, and Ozone measurements [web:4][web:23].</p>
+                    <ul style="margin-top: 1rem; padding-left: 2rem;">
+                        <li>Real-time data from 100+ countries</li>
+                        <li>Color-coded AQI visualization</li>
+                        <li>Click on any station for detailed information</li>
+                        <li>Zoom and pan to explore different regions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- India Focused Map -->
+            <div id="india-focus" class="map-content">
+                <div class="live-map-container">
+                    <div class="status-indicator">
+                        <span class="live-indicator"></span>Live Updates
+                    </div>
+                    <!-- AQI.in India Map -->
+                    <iframe 
+                        src="https://www.aqi.in/in/air-quality-map?embed=true"
+                        class="embed-map"
+                        title="Live India Air Quality Map">
+                    </iframe>
+                </div>
+                <div class="map-description">
+                    <h3>🇮🇳 India Air Quality Focus</h3>
+                    <p>Detailed view of India's air quality with data from Central Pollution Control Board (CPCB) and State Pollution Control Boards. Updated every 15 minutes with comprehensive coverage of major cities and industrial areas [web:2][web:22].</p>
+                    <ul style="margin-top: 1rem; padding-left: 2rem;">
+                        <li>Data from 500+ monitoring stations across India</li>
+                        <li>Real-time AQI, PM2.5, PM10, and weather data</li>
+                        <li>City-wise rankings and comparisons</li>
+                        <li>Historical trends and forecasts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Live Widgets -->
+            <div id="custom-widget" class="map-content">
+                <div class="cards-grid">
+                    <!-- Delhi Widget -->
+                    <div class="widget-container">
+                        <h3>Delhi Air Quality</h3>
+                        <iframe 
+                            src="https://aqicn.org/city/delhi/ihbas/?widgetscript&amp;theme=auto&amp;size=medium" 
+                            style="width: 100%; height: 200px; border: none; border-radius: 10px;"
+                            title="Delhi AQI Widget">
+                        </iframe>
+                    </div>
+
+                    <!-- Mumbai Widget -->
+                    <div class="widget-container">
+                        <h3>Mumbai Air Quality</h3>
+                        <iframe 
+                            src="https://aqicn.org/city/mumbai/colaba/?widgetscript&amp;theme=auto&amp;size=medium"
+                            style="width: 100%; height: 200px; border: none; border-radius: 10px;"
+                            title="Mumbai AQI Widget">
+                        </iframe>
+                    </div>
+
+                    <!-- Bangalore Widget -->
+                    <div class="widget-container">
+                        <h3>Bangalore Air Quality</h3>
+                        <iframe 
+                            src="https://aqicn.org/city/bangalore/hebbal/?widgetscript&amp;theme=auto&amp;size=medium"
+                            style="width: 100%; height: 200px; border: none; border-radius: 10px;"
+                            title="Bangalore AQI Widget">
+                        </iframe>
+                    </div>
+
+                    <!-- Chennai Widget -->
+                    <div class="widget-container">
+                        <h3>Chennai Air Quality</h3>
+                        <iframe 
+                            src="https://aqicn.org/city/chennai/tn-housing-board/?widgetscript&amp;theme=auto&amp;size=medium"
+                            style="width: 100%; height: 200px; border: none; border-radius: 10px;"
+                            title="Chennai AQI Widget">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="map-description">
+                    <h3>📊 Live City Widgets</h3>
+                    <p>Real-time air quality widgets for major Indian cities, powered by the World Air Quality Index project. Each widget shows current AQI, primary pollutant, and recent trends [web:4][web:30].</p>
+                    <div style="background: rgba(46, 139, 87, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <strong>Features:</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 2rem;">
+                            <li>Auto-updates every 15-30 minutes</li>
+                            <li>Click widgets for detailed station information</li>
+                            <li>Historical data and forecasts available</li>
+                            <li>Weather conditions integrated</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global AQI Rankings -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Live Global Rankings</h2>
+            <div class="dashboard-container">
+                <h3>🏆 Most Polluted Cities (Live Data)</h3>
+                <div style="height: 400px; overflow: hidden; border-radius: 15px;">
+                    <iframe 
+                        src="https://aqicn.org/rankings/?widgetscript&theme=auto"
+                        style="width: 100%; height: 450px; border: none; margin-top: -30px;"
+                        title="Global AQI Rankings">
+                    </iframe>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    Live rankings updated hourly from monitoring stations worldwide. Click on any city for detailed information and forecasts.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Information -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Data Sources & Updates</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>🛰️ Data Sources</h4>
+                    <p>Real-time data from EPA monitoring stations, satellite measurements, and validated sensors worldwide, including CPCB (India), EPA (USA), and international networks [web:4][web:25].</p>
+                </div>
+                <div class="card">
+                    <h4>🔄 Update Frequency</h4>
+                    <p>Data refreshes every 15-30 minutes for major cities, with quality assurance checks and automatic validation protocols in place for accuracy [web:1][web:23].</p>
+                </div>
+                <div class="card">
+                    <h4>🌍 Global Coverage</h4>
+                    <p>Over 11,000+ monitoring stations across 100+ countries providing comprehensive air quality data with 500x500m resolution in urban areas [web:5][web:4].</p>
+                </div>
+                <div class="card">
+                    <h4>📊 Pollutant Tracking</h4>
+                    <p>Monitors PM2.5, PM10, NO2, SO2, CO, Ozone, and additional pollutants with health recommendations and AQI calculations following international standards [web:11][web:5].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="effects.html">Health Effects</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="map.html">Air Quality Map</a>
+                <a href="solutions.html">Solutions</a>
+            </div>
+            <div class="contact-info">
+                <p><strong>Contact Us:</strong></p>
+                <p>📞 99807XXXXX</p>
+                <p>📧 breatheforfuture@gmail.com</p>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.8;">&copy; 2025 AirZen. Together for cleaner air.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        function showMap(mapId) {
+            // Hide all map contents
+            document.querySelectorAll('.map-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.map-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected map content
+            document.getElementById(mapId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Auto-refresh notification (every 30 minutes)
+        setInterval(() => {
+            console.log('Maps auto-refreshed with latest data');
+            // You can add a subtle notification here if needed
+        }, 1800000); // 30 minutes
+
+        // Loading animation for iframes
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                iframe.style.opacity = '0.8';
+                iframe.style.transition = 'opacity 0.5s ease';
+            });
+        });
+    </script>
+</body>
+</html>

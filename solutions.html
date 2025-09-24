@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Solutions for Cleaner Air - Breathe Better</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta name="description" content="Explore practical solutions against air pollution at personal, community, and technological levels, and take action today." />
+    <style>
+        /* Enhanced Video Container Styles */
+        .video-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: video-bg-pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes video-bg-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+        
+        .video-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: video-container-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes video-container-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: #000;
+        }
+        
+        .embedded-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .embedded-video:hover {
+            transform: scale(1.02);
+        }
+        
+        .video-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: title-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+            50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); }
+        }
+        
+        .video-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .video-control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .play-button-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: play-button-pulse 2s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        .play-button-overlay:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .play-button-overlay::after {
+            content: '▶';
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-left: 5px;
+        }
+        
+        @keyframes play-button-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+        
+        .video-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-stat {
+            text-align: center;
+            color: white;
+        }
+        
+        .video-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .video-container {
+                margin: 0 1rem;
+                padding: 1.5rem;
+            }
+            
+            .video-title {
+                font-size: 2rem;
+            }
+            
+            .video-description {
+                font-size: 1rem;
+            }
+            
+            .video-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .video-control-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .video-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        /* Dark Mode Support */
+        [data-theme="dark"] .video-container {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .video-control-btn {
+            background: rgba(15, 23, 42, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        [data-theme="dark"] .video-stats {
+            background: rgba(15, 23, 42, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">AirZen</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="effects.html">Health Effects</a></li>
+                <li><a href="dashboard.html">Data Dashboard</a></li>
+                <li><a href="map.html">Air Quality Map</a></li>
+                <li><a href="solutions.html" class="active">Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 40vh; background: var(--gradient-3); padding-top: 8rem;">
+        <div class="hero-content">
+            <h1>Awareness & Solutions</h1>
+            <p>Empowering individuals and communities with knowledge and tools to improve air quality.</p>
+        </div>
+    </section>
+
+    <!-- Personal Solutions -->
+    <section class="section" id="personal-solutions">
+        <div class="container">
+            <h2 class="section-title">Personal Actions</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🚶‍♂️</span>
+                    <h3>Reduce Vehicle Use</h3>
+                    <p>Opt for walking, cycling, carpooling, or public transit to decrease emissions from private vehicles and improve air quality in your community.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🏠</span>
+                    <h3>Use Air Purifiers</h3>
+                    <p>Install HEPA-filter air purifiers at home to lower indoor pollutant levels and protect your family from harmful airborne particles.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🌤️</span>
+                    <h3>Monitor Air Quality</h3>
+                    <p>Check AQI levels daily and avoid exercising or spending extended time outdoors during pollution spikes to protect your health.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🚭</span>
+                    <h3>Avoid Burning Waste</h3>
+                    <p>Refrain from burning leaves, trash, and plastics to reduce toxic fumes contributing to poor air quality in your neighborhood.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-container">
+                <h2 class="video-title">Air Quality Solutions in Action</h2>
+                <p class="video-description">
+                    Discover practical strategies and real-world implementations of air quality improvement solutions. 
+                    This video showcases innovative approaches to combating air pollution at personal, community, and technological levels.
+                </p>
+                
+                <div class="video-wrapper" id="videoWrapper">
+                    <div class="play-button-overlay" id="playButton"></div>
+                    <video 
+                        class="embedded-video" 
+                        id="mainVideo"
+                        controls 
+                        preload="metadata"
+                        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23bg)'/%3E%3Ctext x='400' y='200' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EAir Quality Solutions%3C/text%3E%3Ctext x='400' y='250' text-anchor='middle' fill='rgba(255,255,255,0.8)' font-size='16' font-family='Arial'%3EClick to play video%3C/text%3E%3C/svg%3E">
+                        <source src="WhatsApp-Video-2025-09-23-at-11.24.08-PM.mp4" type="video/mp4">
+                        Your browser does not support the video tag. Please update your browser to view this content.
+                    </video>
+                </div>
+                
+                <div class="video-controls">
+                    <button class="video-control-btn" onclick="restartVideo()">🔄 Restart</button>
+                    <button class="video-control-btn" onclick="toggleMute()">🔊 Sound</button>
+                    <button class="video-control-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+                    <button class="video-control-btn" onclick="shareVideo()">📤 Share</button>
+                </div>
+                
+                <div class="video-stats">
+                    <div class="video-stat">
+                        <span class="video-stat-number" id="viewCount">1,247</span>
+                        <span class="video-stat-label">Views</span>
+                    </div>
+                    <div class="video-stat">
+                        <span class="video-stat-number" id="duration">--:--</span>
+                        <span class="video-stat-label">Duration</span>
+                    </div>
+                    <div class="video-stat">
+                        <span class="video-stat-number">HD</span>
+                        <span class="video-stat-label">Quality</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Solutions -->
+    <section class="section" id="community-solutions" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">Community & Policy</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🌳</span>
+                    <h3>Urban Green Spaces</h3>
+                    <p>Advocate for planting trees and creating parks to absorb pollutants and enhance air quality while providing community recreational spaces.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚡</span>
+                    <h3>Clean Energy Initiatives</h3>
+                    <p>Support community programs promoting solar, wind, and other renewable energy sources to reduce dependence on fossil fuels.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📋</span>
+                    <h3>Pollution Regulations</h3>
+                    <p>Encourage local governments to enforce stricter industrial emissions and vehicle pollution standards for cleaner communities.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📢</span>
+                    <h3>Public Awareness Campaigns</h3>
+                    <p>Participate in and organize events that educate about air pollution health risks and practical solutions for cleaner air.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Solutions -->
+    <section class="section" id="technology-solutions">
+        <div class="container">
+            <h2 class="section-title">Technological Innovations</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">📡</span>
+                    <h3>Smart Sensors</h3>
+                    <p>Deploy low-cost air quality sensors for real-time monitoring and data collection at neighborhood levels to track pollution patterns.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🤖</span>
+                    <h3>Data Analytics</h3>
+                    <p>Utilize big data and AI to predict pollution hotspots and optimize mitigation strategies effectively using machine learning algorithms.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🏭</span>
+                    <h3>Emission Capture Technologies</h3>
+                    <p>Innovate filters and scrubbers for factories and vehicles to trap harmful pollutants before release into the atmosphere.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🌿</span>
+                    <h3>Green Infrastructure</h3>
+                    <p>Incorporate air-purifying plants and green roofs in buildings to naturally reduce airborne contaminants and improve urban air quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section" style="background: var(--gradient-2); color: white; text-align: center;">
+        <div class="container">
+            <h2 style="color: white; margin-bottom: 1rem;">Ready to Make a Difference?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join our community and take part in creating a cleaner, healthier future for everyone.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="index.html#why-air-quality" class="cta-button" style="background: white; color: var(--primary-color); font-weight: 700; padding: 1rem 3rem;">Get Started</a>
+                <a href="dashboard.html" class="cta-button" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; font-weight: 700; padding: 1rem 3rem;">View Data</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="effects.html">Health Effects</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="map.html">Air Quality Map</a>
+                <a href="solutions.html">Solutions</a>
+            </div>
+            <div class="contact-info">
+                <p><strong>Contact Us:</strong></p>
+                <p>📞 99807XXXXX</p>
+                <p>📧 breatheforfuture@gmail.com</p>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.8;">&copy; 2025 AirZen. Together for cleaner air.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced video controls and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('mainVideo');
+            const playButton = document.getElementById('playButton');
+            const videoWrapper = document.getElementById('videoWrapper');
+            
+            // Get video duration when metadata loads
+            video.addEventListener('loadedmetadata', function() {
+                const duration = Math.floor(video.duration);
+                const minutes = Math.floor(duration / 60);
+                const seconds = duration % 60;
+                document.getElementById('duration').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            });
+            
+            // Play button functionality
+            playButton.addEventListener('click', function() {
+                video.play();
+                playButton.style.opacity = '0';
+                setTimeout(() => playButton.style.display = 'none', 300);
+                
+                // Increment view count (simulated)
+                const viewCount = document.getElementById('viewCount');
+                const currentViews = parseInt(viewCount.textContent.replace(',', ''));
+                viewCount.textContent = (currentViews + 1).toLocaleString();
+            });
+            
+            // Show play button when video pauses
+            video.addEventListener('pause', function() {
+                if (!video.ended) {
+                    playButton.style.display = 'flex';
+                    setTimeout(() => playButton.style.opacity = '1', 100);
+                }
+            });
+            
+            // Hide play button when video plays
+            video.addEventListener('play', function() {
+                playButton.style.opacity = '0';
+                setTimeout(() => playButton.style.display = 'none', 300);
+            });
+            
+            // Video wrapper hover effect
+            videoWrapper.addEventListener('mouseenter', function() {
+                if (video.paused) {
+                    playButton.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                }
+            });
+            
+            videoWrapper.addEventListener('mouseleave', function() {
+                playButton.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+        
+        // Video control functions
+        function restartVideo() {
+            const video = document.getElementById('mainVideo');
+            video.currentTime = 0;
+            video.play();
+        }
+        
+        function toggleMute() {
+            const video = document.getElementById('mainVideo');
+            const button = event.target;
+            
+            video.muted = !video.muted;
+            button.innerHTML = video.muted ? '🔇 Muted' : '🔊 Sound';
+            
+            // Button animation
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => button.style.transform = 'scale(1)', 150);
+        }
+        
+        function toggleFullscreen() {
+            const video = document.getElementById('mainVideo');
+            
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+        
+        function shareVideo() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Air Quality Solutions - Breathe Better',
+                    text: 'Check out these practical solutions for improving air quality!',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const button = event.target;
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '✅ Copied!';
+                    button.style.background = 'rgba(50, 205, 50, 0.3)';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.style.background = '';
+                    }, 2000);
+                });
+            }
+        }
+        
+        // Animation on scroll for video section
+        const videoSection = document.querySelector('.video-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 1s ease-out forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        observer.observe(videoSection);
+    </script>
+</body>
+</html>

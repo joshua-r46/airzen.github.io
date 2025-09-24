@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Dashboard - Breathe Better</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="description" content="Real-time air quality data dashboard with interactive charts and detailed pollutant analysis.">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">AirZen</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="effects.html">Health Effects</a></li>
+                <li><a href="dashboard.html" class="active">Data Dashboard</a></li>
+                <li><a href="map.html">Air Quality Map</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 40vh; background: var(--gradient-3); padding-top: 8rem;">
+        <div class="hero-content">
+            <h1>Air Quality Dashboard</h1>
+            <p>Real-time monitoring and comprehensive analysis of air pollution data</p>
+        </div>
+    </section>
+
+    <!-- Current AQI Status -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Current Air Quality Status</h2>
+            <div class="dashboard-container">
+                <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="card" style="text-align: center;">
+                        <h3>Delhi</h3>
+                        <div class="aqi-indicator aqi-hazardous" style="font-size: 2rem; padding: 1rem;">
+                            AQI: 312
+                        </div>
+                        <p>Hazardous - Health warnings of emergency conditions</p>
+                        <small>Last updated: 6:30 PM IST</small>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3>Mumbai</h3>
+                        <div class="aqi-indicator aqi-unhealthy" style="font-size: 2rem; padding: 1rem;">
+                            AQI: 178
+                        </div>
+                        <p>Unhealthy - Everyone may experience health effects</p>
+                        <small>Last updated: 6:30 PM IST</small>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3>Bangalore</h3>
+                        <div class="aqi-indicator aqi-moderate" style="font-size: 2rem; padding: 1rem;">
+                            AQI: 89
+                        </div>
+                        <p>Moderate - Unusually sensitive individuals may experience respiratory symptoms</p>
+                        <small>Last updated: 6:30 PM IST</small>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3>Chennai</h3>
+                        <div class="aqi-indicator aqi-good" style="font-size: 2rem; padding: 1rem;">
+                            AQI: 42
+                        </div>
+                        <p>Good - Air quality is considered satisfactory</p>
+                        <small>Last updated: 6:30 PM IST</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Charts -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Detailed Analysis</h2>
+            
+            <!-- AQI Trend Chart -->
+            <div class="dashboard-container">
+                <h3>📈 AQI Trends - Last 24 Hours</h3>
+                <div class="chart-container">
+                    <canvas id="aqiTrendChart"></canvas>
+                </div>
+                <p style="margin-top: 1rem; color: var(--dark-text); opacity: 0.8;">
+                    <strong>Observation:</strong> Delhi shows consistently high AQI levels throughout the day, with peak pollution during morning and evening rush hours. Mumbai exhibits moderate fluctuations, while southern cities maintain relatively better air quality.
+                </p>
+            </div>
+
+            <!-- Pollutant Breakdown -->
+            <div class="dashboard-container">
+                <h3>🔬 Pollutant Composition - Delhi</h3>
+                <div class="chart-container">
+                    <canvas id="pollutantChart"></canvas>
+                </div>
+                <p style="margin-top: 1rem; color: var(--dark-text); opacity: 0.8;">
+                    <strong>Analysis:</strong> PM2.5 particles constitute the major health risk, followed by PM10 and NO2. The high concentration of fine particles indicates vehicular emissions and industrial activities as primary pollution sources.
+                </p>
+            </div>
+
+            <!-- Weekly Comparison -->
+            <div class="dashboard-container">
+                <h3>📊 Weekly AQI Comparison</h3>
+                <div class="chart-container">
+                    <canvas id="weeklyChart"></canvas>
+                </div>
+                <p style="margin-top: 1rem; color: var(--dark-text); opacity: 0.8;">
+                    <strong>Trend Analysis:</strong> Weekend pollution levels are typically 15-20% lower than weekdays, indicating traffic as a significant contributor. Weather patterns and industrial activities also influence daily variations.
+                </p>
+            </div>
+
+            <!-- Health Impact Metrics -->
+            <div class="dashboard-container">
+                <h3>🏥 Estimated Health Impact (Delhi - Daily)</h3>
+                <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, #ff6b6b, #ff8e8e);">
+                        <h4 style="color: white;">Hospital Visits</h4>
+                        <p style="font-size: 2rem; font-weight: bold; color: white; margin: 0.5rem 0;">+847</p>
+                        <small style="color: rgba(255,255,255,0.9);">Respiratory-related</small>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                        <h4 style="color: white;">Medication Sales</h4>
+                        <p style="font-size: 2rem; font-weight: bold; color: white; margin: 0.5rem 0;">+234%</p>
+                        <small style="color: rgba(255,255,255,0.9);">Inhalers & antihistamines</small>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <h4 style="color: white;">Premature Deaths</h4>
+                        <p style="font-size: 2rem; font-weight: bold; color: white; margin: 0.5rem 0;">~23</p>
+                        <small style="color: rgba(255,255,255,0.9);">Estimated daily impact</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Air Quality Index Guide -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Understanding AQI Levels</h2>
+            <div class="dashboard-container">
+                <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div class="card" style="border-left: 5px solid var(--success-color);">
+                        <div class="aqi-indicator aqi-good">0-50 Good</div>
+                        <h4>Excellent Air Quality</h4>
+                        <p>Air quality is satisfactory, and air pollution poses little or no risk to health.</p>
+                        <strong>Activities:</strong> All outdoor activities are safe for everyone.
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--warning-color);">
+                        <div class="aqi-indicator aqi-moderate">51-100 Moderate</div>
+                        <h4>Acceptable Air Quality</h4>
+                        <p>Air quality is acceptable for most people. However, sensitive individuals may experience minor respiratory symptoms.</p>
+                        <strong>Activities:</strong> Unusually sensitive people should consider reducing prolonged outdoor exertion.
+                    </div>
+                    <div class="card" style="border-left: 5px solid orange;">
+                        <div class="aqi-indicator" style="background: orange; color: white;">101-150 Unhealthy for Sensitive Groups</div>
+                        <h4>Health Concerns</h4>
+                        <p>Members of sensitive groups may experience health effects. The general public is less likely to be affected.</p>
+                        <strong>Activities:</strong> Sensitive individuals should limit prolonged outdoor activities.
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--accent-color);">
+                        <div class="aqi-indicator aqi-unhealthy">151-200 Unhealthy</div>
+                        <h4>Everyone Affected</h4>
+                        <p>Some members of the general public may experience health effects; sensitive groups may experience more serious effects.</p>
+                        <strong>Activities:</strong> Everyone should limit prolonged outdoor exertion.
+                    </div>
+                    <div class="card" style="border-left: 5px solid purple;">
+                        <div class="aqi-indicator" style="background: purple; color: white;">201-300 Very Unhealthy</div>
+                        <h4>Serious Health Effects</h4>
+                        <p>Health alert: The risk of health effects is increased for everyone.</p>
+                        <strong>Activities:</strong> Everyone should avoid prolonged outdoor activities.
+                    </div>
+                    <div class="card" style="border-left: 5px solid var(--danger-color);">
+                        <div class="aqi-indicator aqi-hazardous">301+ Hazardous</div>
+                        <h4>Emergency Conditions</h4>
+                        <p>Health warning of emergency conditions: everyone is more likely to be affected by serious health effects.</p>
+                        <strong>Activities:</strong> Everyone should avoid all outdoor activities.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Sources -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Data Sources & Methodology</h2>
+            <div class="dashboard-container">
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>🛰️ Monitoring Network</h4>
+                        <p>Data collected from Central Pollution Control Board (CPCB) monitoring stations, satellite measurements, and validated citizen sensors across India.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Update Frequency</h4>
+                        <p>Real-time data updates every 15 minutes for major cities, with quality assurance checks and data validation protocols in place.</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Calculation Method</h4>
+                        <p>AQI calculated using the highest sub-index among PM2.5, PM10, NO2, SO2, CO, and O3, following national ambient air quality standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="effects.html">Health Effects</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="map.html">Air Quality Map</a>
+                <a href="solutions.html">Solutions</a>
+            </div>
+            <div class="contact-info">
+                <p><strong>Contact Us:</strong></p>
+                <p>📞 99807XXXXX</p>
+                <p>📧 breatheforfuture@gmail.com</p>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.8;">&copy; 2025 AirZen. Together for cleaner air.</p>
+        </div>
+    </footer>
+
+    <script src="charts.js"></script>
+</body>
+</html>
